@@ -38,11 +38,13 @@ function apiDevPlugin(env: Record<string, string>) {
         try {
           if (path === '/search') {
             const q = url.searchParams.get('q') ?? ''
+            // @ts-ignore
             const { search } = await import('./api/search.js')
             res.end(JSON.stringify(await search(q)))
 
           } else if (path === '/quote') {
             const symbol = url.searchParams.get('symbol') ?? ''
+            // @ts-ignore
             const { getQuote } = await import('./api/quote.js')
             res.end(JSON.stringify(await getQuote(symbol)))
 
@@ -50,12 +52,14 @@ function apiDevPlugin(env: Record<string, string>) {
             const symbols = (url.searchParams.get('symbols') ?? '')
               .split(',')
               .filter(Boolean)
+            // @ts-ignore
             const { getQuotes } = await import('./api/quote.js')
             res.end(JSON.stringify(await getQuotes(symbols)))
 
           } else if (path === '/analyze') {
             // GET: mode=recommendations
             // POST: 종목 분석 파라미터 (JSON body)
+            // @ts-ignore
             const { analyze } = await import('./api/analyze.js')
 
             let params: Record<string, unknown> = {}

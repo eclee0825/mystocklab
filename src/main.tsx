@@ -1,4 +1,4 @@
-import { StrictMode, useState, useEffect, useCallback, useRef } from 'react'
+import { StrictMode, useState, useEffect, useCallback, useRef, type ReactElement } from 'react'
 import { createRoot } from 'react-dom/client'
 import {
   TrendingUp, TrendingDown, Plus, Settings, PieChart,
@@ -951,7 +951,7 @@ function App() {
     setStocks(prev => prev.filter(s => s.id !== id))
   }
 
-  const tabs: { key: Tab; label: string; Icon: (p: { size: number }) => JSX.Element }[] = [
+  const tabs: { key: Tab; label: string; Icon: (p: { size: number }) => ReactElement }[] = [
     { key: 'portfolio',  label: '포트폴리오', Icon: PieChart },
     { key: 'add',        label: '종목 추가',  Icon: Plus },
     { key: 'recommend',  label: '종목 추천',  Icon: Lightbulb },
