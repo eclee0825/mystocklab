@@ -117,3 +117,15 @@ export async function getQuotes(symbols) {
       : { symbol: symbols[i], error: r.reason?.message ?? '조회 실패' }
   )
 }
+
+// ─── Vercel Serverless Function (/api/quote) ──────────────────────────────────
+
+export default async function handler(req, res) {
+  try {
+    const symbol = req.query.symbol ?? ''
+    const result = await getQuote(symbol)
+    res.json(result)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+}

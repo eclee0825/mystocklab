@@ -189,3 +189,20 @@ export async function analyze(params) {
     shares:       Number(rest.shares),
   })
 }
+
+// ─── Vercel Serverless Function (/api/analyze) ────────────────────────────────
+
+export default async function handler(req, res) {
+  try {
+    let params = {}
+    if (req.method === 'POST') {
+      params = req.body ?? {}
+    } else {
+      params = req.query
+    }
+    const result = await analyze(params)
+    res.json(result)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+}

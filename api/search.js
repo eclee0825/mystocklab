@@ -101,3 +101,15 @@ export async function search(query) {
 
   return { results }
 }
+
+// ─── Vercel Serverless Function ───────────────────────────────────────────────
+
+export default async function handler(req, res) {
+  try {
+    const q = req.query.q ?? ''
+    const result = await search(q)
+    res.json(result)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+}
